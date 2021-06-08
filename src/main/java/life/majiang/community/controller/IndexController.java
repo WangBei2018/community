@@ -1,5 +1,9 @@
 package life.majiang.community.controller;
 
+/**
+ * @Author WangBei
+ * @Date 2021/6/7 15:58
+ */
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

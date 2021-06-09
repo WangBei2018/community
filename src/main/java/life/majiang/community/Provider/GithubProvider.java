@@ -25,21 +25,25 @@ public class GithubProvider {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String string = response.body().string();
-            System.out.println(string);
-            return string;
-        } catch (IOException e) {
+            String string = response.body().string();   // 拿到的结果： access_token=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&scope=user&token_type=bearer
+
+            // 从String中获取access_woken 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
+            String tokenstr = string.split("&")[0];
+            String token = tokenstr.split("=")[1];
+
+            return token;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private GithubUser getUser(String accessToken) {
+    public GithubUser getUser(String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.github.com/user?access_token=" + accessToken)
+                .url("https://api.github.com/user?")
+                .header("Authorization", "token " + accessToken)        // token后有一个空格
                 .build();
-
 
         try {
             Response response = client.newCall(request).execute();

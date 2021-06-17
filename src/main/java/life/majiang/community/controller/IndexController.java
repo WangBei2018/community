@@ -14,7 +14,7 @@ public class IndexController {
     @GetMapping("/hello")           // 输入时，访问下面的hello函数
     public String hello(@RequestParam(name = "name") String name, Model model) {
         model.addAttribute("name", name);
-        return "index";             // 通过resources/index.html访问页面
+        return "index";              // 通过resources/index.html访问页面
     }
     @GetMapping("/")
     public String index(){return "index";}

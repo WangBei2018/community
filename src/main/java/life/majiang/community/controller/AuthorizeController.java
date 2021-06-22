@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -40,7 +40,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request) {
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -50,16 +50,20 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
 
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        if (githubUser != null) {
+        if (githubUser != null) {                       // github登录成功
             User user = new User();
+
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);                    // 获取用户信息，生成token,将token放入用户对象里面，存入数据库，并且将token放入数据库中
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));          // github用户中的id是Long类型，User中的accountId是String类型，需要类型转换
-            user.setToken(UUID.randomUUID().toString());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
 
             UserMapper.insert(user);
-            request.getSession().setAttribute("user", githubUser);
+            response.addCookie(new Cookie("token", token));
+
+
             return "redirect:/";
             // 登陆成功，写cookie和session
         } else {

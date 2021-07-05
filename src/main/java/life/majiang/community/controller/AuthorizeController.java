@@ -59,7 +59,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));          // github用户中的id是Long类型，User中的accountId是String类型，需要类型转换
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-
+            user.setAvatarURL(githubUser.getAvatar_url());
             UserMapper.insert(user);
             response.addCookie(new Cookie("token", token));
 

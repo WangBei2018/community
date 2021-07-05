@@ -15,9 +15,11 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into user(NAME,ACCOUNT_ID,TOKEN,GMT_CREATE,GMT_MODIFIED) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into user(NAME,ACCOUNT_ID,TOKEN,GMT_CREATE,GMT_MODIFIED,avatar_url) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{avatarURL})")
     void insert(User user);
 
-    @Select("select * from USER where token = #{token}")        // #{}:在myBatis编译时将下面的形参放入sql语句，如果形参是类的类型，会直接放入，如果不是，需要加入注解@Param("")
+    @Select("select * from USER where token = #{token}")
+        // #{}:在myBatis编译时将下面的形参放入sql语句，如果形参是类的类型，会直接放入，如果不是，需要加入注解@Param("")
     User findByToken(@Param("token") String token);
+
 }

@@ -7,7 +7,7 @@ import lombok.Data;
  * @Date 2021/6/17 17:30
  * @Description:
  */
-@Data
+@Data       // 自动生成ToString(),Getter(),Setter(),EqualsAndHashCode()方法
 public class User {
     private int id;
     private String name;

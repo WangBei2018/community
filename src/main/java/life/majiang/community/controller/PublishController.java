@@ -38,7 +38,7 @@ public class PublishController {
                             @RequestParam(value = "description", required = false) String description,
                             @RequestParam(value = "tag", required = false) String tag,
                             HttpServletRequest request,
-                            Model model) {
+                            Model model) {          // model属性将数据写入前端页面
 
         // 接受title，description和tag后放入model，为了回显到页面上
         model.addAttribute("title", title);

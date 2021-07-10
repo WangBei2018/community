@@ -16,7 +16,7 @@
 [Git](https://git-scm.com/downloads)  
 [Visual paradigm](https://www.visual-paradigm.com/cn/) ：画图工具  
 [Flyway](https://flywaydb.org/documentation/getstarted/firststeps/maven) ：应用、管理并跟踪数据库变更的数据库版本管理工具   
-[Lombok](https://projectlombok.org/) ：Lombok 是一种 Java™ 实用工具，可用来帮助开发人员消除 Java 的冗长，尤其是对于简单的 Java 对象（POJO）。它通过注解实现这一目的。
+[Lombok](https://projectlombok.org/) ：Lombok 是一种 Java™ 实用工具，可用来帮助开发人员消除 Java 的冗长，尤其是对于简单的 Java 对象（POJO）。它通过注解实现这一目的。使用了@Data
 
 
 ## 脚本

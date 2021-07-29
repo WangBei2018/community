@@ -5,6 +5,7 @@ package life.majiang.community.controller;
  * @Date 2021/6/7 15:58
  */
 
+import life.majiang.community.DTO.PaginationDTO;
 import life.majiang.community.DTO.QuestionDTO;
 import life.majiang.community.mapper.QuestionMapper;
 import life.majiang.community.mapper.UserMapper;
@@ -41,7 +42,9 @@ public class IndexController {
     // 循环查看所有cookie，找到coolie等于token的cookie，然后在数据库里面查询是否有这个cookie对应的用户，如果有，那么显示姓名;如果没有则显示登录
     // 实现持续换登录状态,获取user
     public String index(HttpServletRequest request,
-                        Model model) {
+                        Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
@@ -54,8 +57,8 @@ public class IndexController {
                 }
             }
         }
-        List<QuestionDTO> questionList = questionService.list();    // 调用questionService中的list()方法，使用QuestionDTO类组装Question和User类
-        model.addAttribute("question",questionList);
+        PaginationDTO pagination = questionService.list(page, size);    // 调用questionService中的list()方法，使用QuestionDTO类组装Question和User类
+        model.addAttribute("question", pagination);
         return "index";
     }
 

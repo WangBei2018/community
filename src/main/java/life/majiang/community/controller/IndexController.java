@@ -57,8 +57,8 @@ public class IndexController {
                 }
             }
         }
-        PaginationDTO pagination = questionService.list(page, size);    // 调用questionService中的list()方法，使用QuestionDTO类组装Question和User类
-        model.addAttribute("question", pagination);
+        PaginationDTO pagination = questionService.list(page, size);    // 调用questionService中的list()方法，使用QuestionDTO类组装Question和User类， 返回问题列表和页码列表
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 

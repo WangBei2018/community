@@ -9,7 +9,7 @@
 [Bootstrap](https://v3.bootcss.com/)  
 [Spring](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)  
 [菜鸟教程](https://www.runoob.com/mysql/mysql-tutorial.html) MySql教程  
-[Thymeleaf](https://www.thymeleaf.org/) 开发Web和独立环境项目的服务器端的Java模版引擎    
+[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html) 开发Web和独立环境项目的服务器端的Java模版引擎    
 
 ## 工具
 

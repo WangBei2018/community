@@ -29,14 +29,23 @@ public class QuestionService {
 
     public PaginationDTO list(Integer page, Integer size) {
 
-        Integer offset = (page - 1) * size;
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.count();                // 获取所有的问题总数
+        paginationDTO.setPagination(totalCount, page, size);
 
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > paginationDTO.getTotalPage()) {
+            page = paginationDTO.getTotalPage();
+        }
+
+        Integer offset = (page - 1) * size;
         // 在这里返回的Question对象中的各个变量的命名使用的是下划线（例如avatar_url------avatarURL），而Question对象中的变量明明是驼峰表示，
         // 所以需要在配置文件中配置mybatis.configuration.map-underscore-to-camel-case=true
-        List<Question> questions = questionMapper.list(offset, size);
-
-        PaginationDTO paginationDTO = new PaginationDTO();
+        List<Question> questions = questionMapper.list(offset, size);       // 返回的是每页的问题列表questions
         List<QuestionDTO> questionDTOList = new ArrayList<>();
+
         for (Question question : questions) {
             User user = userMapper.findById(question.getCreator()); // 通过id找到用户对象
             QuestionDTO questionDTO = new QuestionDTO();            //包含Question类变量以及用户类对象
@@ -45,8 +54,6 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestions(questionDTOList);
-        Integer totalCount = questionMapper.count();
-        paginationDTO.setPagination(totalCount, page, size);
 
         return paginationDTO;
     }
